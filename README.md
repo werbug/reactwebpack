@@ -3,6 +3,12 @@
 a simple reactjs demo, use material UI.  
 structure by webpack, can dev hotlive by using webpack-server.
 
+## npm script
+
+npm start : 开启开发服务器
+
+npm run build : 发布最终版本
+
 ## [Material-UI](http://callemall.github.io/material-ui/) - Example Webpack Project
 
 This is an example project that uses [Material-UI](http://callemall.github.io/material-ui/).
