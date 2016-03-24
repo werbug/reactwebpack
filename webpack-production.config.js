@@ -8,6 +8,7 @@ var buildPath = path.resolve(__dirname, 'build');
 //var buildPath = path.resolve(__dirname, '../../baby/static/admin/pregnancy/', 'reactnative');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var config = {
     //要进行打包的入口文件
@@ -38,7 +39,9 @@ var config = {
             {
                 from: 'style'
             }
-        ], path.resolve(__dirname, "src"))
+        ], path.resolve(__dirname, "src")),
+        //输出 CSS 文件
+        new ExtractTextPlugin("./module/[name].css")
     ],
     module: {
         //eslint 
@@ -55,7 +58,27 @@ var config = {
                 test: /\.(js|jsx)$/, //All .js and .jsx files
                 loaders: ['babel'], //react-hot is like browser sync and babel loads jsx and es6-7
                 exclude: [nodeModulesPath]
-            }
+            },
+            //内联样式
+            //{test: /\.css$/, loader: 'style!css'},
+            //{ test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+            //外置样式打包
+            {
+                test: /\.css/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            },
+            //jsx
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            //图片内联
+            //{test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}
         ]
     },
     //Eslint config
