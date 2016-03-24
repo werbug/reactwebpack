@@ -1,0 +1,28 @@
+{
+    "v": "0.4.0",
+    "min-v": "5.0.0",
+    "date": "2016-01-10",
+    "des": ["修复xxbug", "添加xx功能"],
+    "iosBundleMd5": "dbb81d2383112abb50eb19970c486acd",
+    "androidBundleMd5": "dbb81d2383112abb50eb19970c486acd",
+    "iosZipMd5": [
+        {
+            "ver": "0.2.0-0.4.0.zip",
+            "md5": "dbb81d2383112abb50eb19970c486acd"
+        }, {
+            "ver": "0.3.0-0.4.0.zip",
+            "md5": "dbb81d2383112abb50eb19970c486acd"
+        }
+    ],
+    "androidZipMd5": [
+        {
+            "ver": "0.2.0-0.4.0.zip",
+            "md5": "dbb81d2383112abb50eb19970c486acd"
+        }, {
+            "ver": "0.3.0-0.4.0.zip",
+            "md5": "dbb81d2383112abb50eb19970c486acd"
+        }
+    ],
+    "isValid": false,
+    "isOnline": true
+}

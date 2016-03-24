@@ -1,0 +1,21 @@
+{
+    "vid": "0.2.0-0.4.0.zip",
+    "list": [
+        {
+            "platform": "ios",
+            "url": "/aaa.zip"
+        },
+        {
+            "platform": "ios",
+            "url": "/aaa.zip"
+        },
+        {
+            "platform": "android",
+            "url": "/aaa.zip"
+        },
+        {
+            "platform": "android",
+            "url": "/aaa.zip"
+        }
+    ]
+}
