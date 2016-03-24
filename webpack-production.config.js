@@ -4,7 +4,8 @@
 'use strict';
 var webpack = require('webpack');
 var path = require('path');
-var buildPath = path.resolve(__dirname, '../../baby/static/admin/pregnancy/', 'reactnative');
+var buildPath = path.resolve(__dirname, 'build');
+//var buildPath = path.resolve(__dirname, '../../baby/static/admin/pregnancy/', 'reactnative');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
 
@@ -41,16 +42,14 @@ var config = {
     ],
     module: {
         //eslint 
-        /*
         preLoaders: [
             {
                 test: /\.(js|jsx)$/,
                 loader: 'eslint-loader',
                 include: [path.resolve(__dirname, "src/app")],
                 exclude: [nodeModulesPath]
-            },
+            }
         ],
-        */
         loaders: [
             {
                 test: /\.(js|jsx)$/, //All .js and .jsx files
