@@ -12,6 +12,10 @@ class Index extends React.Component {
         super(props);
     }
     
+    componentWillUnmount () {
+        
+    }
+    
     render() {
         return (
             <div>

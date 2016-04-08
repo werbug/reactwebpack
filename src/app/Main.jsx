@@ -48,7 +48,10 @@ const styles = {
     }
 };
 
-
+/**
+ * @author yinjie
+ * @date 20160308
+ */
 class Main extends React.Component {
     
     constructor(props) {
