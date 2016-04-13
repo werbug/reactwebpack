@@ -4,6 +4,7 @@ import IconButton from 'material-ui/lib/icon-button';
 
 import Project from './Project'; // Our custom react component
 
+import './style/style.less';
 //import LeftNav from 'material-ui/lib/left-nav';
 
 class Index extends React.Component {

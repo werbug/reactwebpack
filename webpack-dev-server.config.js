@@ -2,30 +2,30 @@
  * 开发环境 dev-server 构建方法
  */
 'use strict';
-console.log(process.argv);
 
 var webpack = require('webpack');
 var path = require('path');
 var buildPath = path.resolve(__dirname, 'build');
 var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var config = {
-    //Entry points to the project
+    //总入口文件
     entry: [
         'babel-polyfill',
         'webpack/hot/dev-server',
         'webpack/hot/only-dev-server',
         path.join(__dirname, '/src/app/app.jsx')
     ],
-    //Config options on how to interpret requires imports
+    //入口文件配置解析类型
     resolve: {
         extensions: ["", ".js", ".jsx"]
             //node_modules: ["web_modules", "node_modules"]  (Default Settings)
     },
-    //Server Configuration options
+    //server 配置
     devServer: {
-        contentBase: 'src/www', //Relative directory for base of server
+        contentBase: 'www', //发布目录
         devtool: 'eval',
         hot: true, //Live-reload
         inline: true,
@@ -33,23 +33,27 @@ var config = {
     },
     devtool: 'eval',
     output: {
-        path: buildPath, //Path of output file
-        filename: 'app.js'
+        path: buildPath, //输出根目录
+        filename: 'app.js'  //输出文件名
     },
     plugins: [
         //Enables Hot Modules Replacement
         new webpack.HotModuleReplacementPlugin(),
         //Allows error warnings but does not stop compiling. Will remove when eslint is added
         new webpack.NoErrorsPlugin(),
-        //Moves files
+        //移动文件，如果发布目录和编辑目录不一致时，可以配置此项将编辑的 www 内容文件转移到发布目录
+        /*
         new TransferWebpackPlugin([
             {
                 from: 'www'
             }
-        ], path.resolve(__dirname, "src"))
+        ], path.resolve(__dirname, "")),
+        */
+        //输出 CSS 文件
+        new ExtractTextPlugin("app.css")
     ],
     module: {
-        //Loaders to interpret non-vanilla javascript code as well as most other extensions including images and text.
+        //构建前置加载器
         preLoaders: [
             {
                 //Eslint loader
@@ -60,6 +64,18 @@ var config = {
             }
         ],
         loaders: [
+            //内联样式
+            //{test: /\.css$/, loader: 'style!css'},
+            //{ test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+            //外置样式打包
+            {
+                test: /\.css/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+            },
+            {
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+            },
             {
                 //React-hot loader and
                 test: /\.(js|jsx)$/, //All .js and .jsx files
@@ -68,7 +84,7 @@ var config = {
             }
         ]
     },
-    //eslint config options. Part of the eslint-loader package
+    //eslint config 文件配置路径
     eslint: {
         configFile: '.eslintrc.json'
     }

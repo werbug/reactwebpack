@@ -22,7 +22,7 @@ var config = {
     devtool: 'source-map',
     output: {
         path: buildPath, //输出路径
-        filename: 'app.js' //输出的文件名
+        filename: './module/[name].js' //输出的文件名
     },
     plugins: [
         //uglify
@@ -35,11 +35,11 @@ var config = {
         //只报出错误或警告，但不会终止编译，建议如果是开发环境可以把这一项去掉
         new webpack.NoErrorsPlugin(),
         //直接转移的文件(夹)，比如一些 css 文件和一些图片
-        new TransferWebpackPlugin([
-            {
-                from: 'style'
-            }
-        ], path.resolve(__dirname, "src")),
+        // new TransferWebpackPlugin([
+        //     {
+        //         from: 'style'
+        //     }
+        // ], path.resolve(__dirname, "src")),
         //输出 CSS 文件
         new ExtractTextPlugin("./module/[name].css")
     ],

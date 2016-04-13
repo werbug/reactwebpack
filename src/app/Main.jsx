@@ -17,6 +17,8 @@ import TableBody from 'material-ui/lib/table/table-body';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import Request from 'superagent';
 
+import './style/main.less';
+
 const styles = {
     projectList: {
         margin: '0 2%'
