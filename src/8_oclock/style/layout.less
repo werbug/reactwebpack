@@ -1,0 +1,522 @@
+.text-ellipsis(){
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+html {
+    font-size: 20px;
+}
+
+.body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling : touch;
+    transform: translateZ(0);
+}
+.wrapper {
+    position: relative;
+    z-index: 0;
+    background-color: rgba(36, 45, 91, 1);
+    // background-image: url(img/main-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    padding-top: 18.1rem;
+}
+
+.act-bg {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 400px;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    // background-image: url(img/main-bg-top.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    .bling-1, .bling-2, .bling-3 {
+        position: absolute;
+        z-index: -1;
+        width: 30px;
+        height: 30px;
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        .shine {
+            display: block;
+            height: 100%;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            animation-name: 'shine-frame';
+            animation-duration: 1s;
+            animation-timing-function: ease-in-out;
+            animation-delay: 0;
+            animation-iteration-count: infinite;
+        }
+    }
+    .bling-1 {
+        top: 13.555rem;
+        left: 14.15rem;
+        background-image: url(./img/blings/01-3.png);
+        .shine {
+            animation-duration: 1.6s;
+            background-image: url(./img/blings/01-1.png);
+        }
+    }
+    .bling-2 {
+        top: 7.888rem;
+        left: 0.205rem;
+        background-image: url(./img/blings/02-3.png);
+        .shine {
+            background-image: url(./img/blings/02-1.png);
+        }
+    }
+    .bling-3 {
+        top: 2.84rem;
+        left: 12.009rem;
+        background-image: url(./img/blings/03-3.png);
+        .shine {
+            background-image: url(./img/blings/03-1.png);
+        }
+    }
+}
+
+@keyframes 'shine-frame' {
+    0% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
+
+
+.activite {
+    position: relative;
+    z-index: 1;
+}
+
+.activite-main {
+    // position: relative;
+    // z-index: 2;
+    .title {
+        font-size: 12px;
+        text-align: center;
+        .l1 {
+            color: #999999;
+        }
+        .l2 {
+            margin-top: 3px;
+            color: #fff;
+        }
+    }
+    .ticket {
+        width: 272px;
+        height: 202px;
+        margin: 25px auto 0;
+        background-image: url(img/tickect-bg.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-align: center;
+        &.has {
+            background-image: url(img/tickect-bg-1.png);
+        }
+        .title1 {
+            padding-top: 40px;
+            font-size: 25px;
+            color: #666633;
+        }
+        .title2 {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #663333;
+        }
+        .desc{
+            font-size: 12px;
+            margin-top: 36px;
+        }
+        .button {
+            padding-top: 11px;
+            font-size: 16px;
+            margin: 0 50px;
+            a, span {
+                color: #545550;
+            }
+        }
+    }
+}
+
+.gift {
+    position: relative;
+    z-index: 1;
+    padding-top: 30px;
+    background-image: url(./img/award-bg.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    @media screen and (min-width: 319px) {
+        background-position: center 42px;
+    }
+    @media screen and (min-width: 359px) {
+        background-position: center 22px;
+    }
+    @media screen and (min-width: 374px) {
+        background-position: center 13px;
+    }
+    @media screen and (min-width: 379px) {
+        background-position: center 12px;
+    }
+    @media screen and (min-width: 410px) {
+        background-position: center -6px;
+    }
+    .domset {
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        margin: 22px auto 0;
+        width: 272px;
+        overflow: auto;
+        @media screen and (max-width: 370px) {
+            width: 268px;
+        }
+        &.center {
+            justify-content: center;
+        }
+        .item {
+            &:first-child {
+                margin-left: -2px;
+            }
+            width: 50%;
+            flex-shrink: 0;
+            .btn {
+                margin-top: 3px;
+                text-align: center;
+            }
+            .code {
+                font-size: 12px;
+                text-align: center;
+                color: #fff;
+                margin-top: 8px;
+            }
+        }
+        .pic {
+            position: relative;
+            width: 102px;
+            height: 126px;
+            margin: auto;
+            background: transparent url(./img/gift-bg.png) no-repeat;
+            background-size: contain;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+            .image {
+                margin: 0 8px 0 5px;
+                padding-top: 15px;
+                height: 104px;
+                overflow: hidden;
+            }
+            .name {
+                position: absolute;
+                width: 70%;
+                left: 50%;
+                margin-left: -35%;
+                bottom: 6px;
+                background: rgba(255,255,255,0.7);
+                border-radius: 8px;
+                text-align: center;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+            .num {
+                position: absolute;
+                width: 22px;
+                height: 22px;
+                top: 0;
+                left: -10px;
+                border: 3px solid #fff;
+                border-radius: 50%;
+                background-color: #d6d2c4;
+                background-clip: content-box;
+                text-align: center;
+                line-height: 22px;
+                color: #5e6261;
+                font-size: 12px;
+                font-weight: normal;
+                &.avail {
+                    background-color: #F9DA00;
+                }
+            }
+            .count {
+                position: absolute;
+                background: transparent url(./img/icon-x.png) no-repeat;
+                background-size: 6px;
+                background-position: 0 4px;
+                bottom: 6px;
+                //right: -24px;
+                left: 102px;
+                padding-left: 10px;
+                color: #fff;
+                font-size: 12px;
+                line-height: 1;
+            }
+        }
+    }
+    .no-ticket {
+        position: absolute;
+        z-index: 9;
+        top: 20px;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        & > p {
+            color: #fff;
+            text-align: center;
+            margin-top: 70px;
+            font-size: 20px;
+            line-height: 2;
+        }
+    }   
+}
+
+.list-view {
+    position: relative;
+    z-index: 2;
+    box-sizing: border-box;
+    width: 91.2%;
+    margin: 0 auto;
+    border: 1px solid #727D7F;
+    border-radius: 8px;
+    padding: 13px 7% 0;
+    @media screen and (max-width: 375px) {
+        padding: 13px 5% 0;
+    }
+    & > h2 {
+        font-size: 20px;
+        color: #F8E71C;
+        text-align: center;
+    }
+    .prize {
+        margin-top: 28px;
+        margin-bottom: 12px;
+        .info {
+            font-size: 12px;
+            color: #fff;
+            margin-right: 95px;
+            & > p {
+                .text-ellipsis();
+                margin-top: 18px;
+            }
+        }
+        .pic {
+            float: right;
+            width: 80px;
+            height: 94px;
+            background-color: #fff;
+            border-radius: 6px;
+            border: 3px solid #fff;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .font-color1 {
+            font-size: 14px;
+        }
+    }
+    .list {
+        li {
+            & > p {
+                .text-ellipsis();
+            }
+            font-size: 12px;
+            color: #fff;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            .avatar {
+                box-sizing: border-box;
+                width: 34px;
+                height: 34px;
+                margin-right: 5px;
+                border: 2px solid #fff;
+                border-radius: 50%;
+            }
+        }
+        &.shopping {
+            max-height: 72px;
+            overflow: hidden;
+            line-height: 2.2;
+            margin-top: 12px;
+            margin-bottom: 14px;
+        }
+        &.with-pic {
+            li {
+                line-height: 34px;
+                margin-top: 10px;
+                .name {
+                    padding-right: 8px;
+                }
+            }
+            .no-shrink {
+                width: 110px;
+                text-align: right;
+            }
+        }
+        .no-shrink {
+            flex-shrink: 0;
+            text-align: left;
+            width: 130px;
+        }
+    }
+    
+    .more {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 10px;
+    }
+    
+    hr {
+        line-height: 0;
+        border: none;
+        border-top: 1px solid #727D7F;
+        margin: 0 -15px;
+        padding: 0
+    }
+}
+
+.hl {
+    color: #F9DA00;
+}
+
+.next-act {
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    // display: flex;
+    // justify-content: space-between;
+    // align-content: center;
+    // align-items: center;
+    line-height: 50px;
+    color: #fff;
+    background-color: rgba(34,39,69,0.8);
+    .text {
+        float: left;
+    }
+    button, .button {
+        height: 32px;
+        line-height: 32px;
+        background-color: #F9CC29;
+        padding: 0 15px;
+        border-radius: 4px;
+        color: black;
+        float: right;
+        margin-top: 10px;
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 53px;
+    padding-bottom: 15px;
+    color: #a3b1b3;
+    font-size: 12px;
+    line-height: 1;
+    .icon-c {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: transparent url(./img/icon-c.png) no-repeat;
+        background-size: contain;
+        vertical-align: bottom;
+        margin-right: 5px;
+    }
+}
+
+//最上的活动倒计时
+.remain-time {
+    height: 26px;
+    line-height: 26px;
+    color: #F9DA00;
+    text-align: center;
+    background: rgba(23, 26, 57, 0.8);
+    font-size: 14px;
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+    top: 0;
+}
+
+.text1 {
+    background-image: url(./img/text-1.png);
+    background-repeat: no-repeat;
+    background-size: 186px;
+    background-position: center;
+}
+
+.text2 {
+    background-image: url(./img/text-2.png);
+    background-repeat: no-repeat;
+    background-size: 164px;
+    background-position: center;
+}
+
+.btn1, .btn2 {
+    display: inline-block;
+    width: 110px;
+    height: 30px;
+    background-size: contain;
+    line-height: 30px;
+    font-size: 15px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+.btn1 {
+    background-image: url(./img/btn-1.png);
+}
+
+.btn2 {
+    background-image: url(./img/btn-2.png);
+}
+
+.font-color1 {
+    color: #f9da00;
+}
+
+/*
+ * clearfix
+ */
+.cf {
+    zoom: 1;
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+.cf-reset {
+    float: left;
+    width: 100%;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}

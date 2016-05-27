@@ -1,0 +1,115 @@
+.mask {
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    z-index: 9;
+    .dialog {
+        position: relative;
+        outline: none;
+        .cont {
+            
+        }
+        .btn-area {
+            margin-top: 20px;
+            text-align: center;
+            button {
+                width: 185px;
+                height: 55px;
+                background-color: transparent;
+                background-image: url(img/btn-mask.png);
+                color: #000;
+                font-size: 20px;
+                background-size: 100%; 
+                box-sizing: border-box;
+                padding: 0 5px 8px;
+            }
+        }
+        .ticket {
+            width: 220px;
+            height: 265px;
+            margin: 0 auto;
+            background-image: url(img/ticket-pic.png);
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: 100%;
+        }
+        .tip {
+            box-sizing: border-box;
+            width: 280px;
+            padding: 20px 17px 40px;
+            border-radius: 8px;
+            background-color: #EBE8E8;
+            h2 {
+                text-align: center;
+                font-weight: normal;
+                line-height: 2;
+            }
+            p {
+                position: relative;
+                font-size: 16px;
+                line-height: 1.3;
+                padding-left: 25px;
+                margin-top: 14px;
+                &:before {
+                    position: absolute;
+                    left: 5px;
+                    top: 5px;
+                    content: '';
+                    display: inline-block;
+                    height: 6px;
+                    width: 6px;
+                    border-radius: 50%;
+                    background-color: #f5d336;
+                }
+            }
+        }
+        .tip.img {
+            padding: 10px;
+        }
+        .btn-close {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            z-index: 9;
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            background-color: #EBE8E8;
+            border-radius: 50%;
+            background-image: url(img/icon-close.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 40%;
+        }
+        
+        .alert {
+            width: 236px;
+            background-color: #e6e2e2;
+            border: 1px solid #69686f;
+            border-radius: 5px;
+            text-align: center;
+            @media screen and (min-width:359px) {
+                width: 280px;
+            }
+            .msg {
+                font-size: 16px;
+                padding: 45px 30px 30px;
+            }
+            .btn-area {
+                font-size: 18px;
+                height: 46px;
+                line-height: 46px;
+                margin-top: 0;
+                border-top: 1px solid #cbc7c7;
+            }
+        }
+    }
+}
+

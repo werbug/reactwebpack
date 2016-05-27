@@ -1,0 +1,17 @@
+{
+    "remotePath": "/home/yinjie/workspace/mobile-fe/lg/src/8_oclock",
+    "host": "172.16.10.203",
+    "username": "yinjie",
+    "password": "@yinjie0258",
+    "port": 22,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": null,
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\node_modules"
+    ]
+}

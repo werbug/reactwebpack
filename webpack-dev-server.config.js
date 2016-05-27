@@ -10,13 +10,19 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules');
 var TransferWebpackPlugin = require('transfer-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+/**
+ * 需要构建项目的入口文件
+ * 想对于当前目录
+ */
+var enterFile = 'src/8_oclock/app.jsx';
+
 var config = {
     //总入口文件
     entry: [
         'babel-polyfill',
         'webpack/hot/dev-server',
         'webpack/hot/only-dev-server',
-        path.join(__dirname, '/src/app/app.jsx')
+        path.join(__dirname, enterFile)
     ],
     //入口文件配置解析类型
     resolve: {
@@ -29,7 +35,8 @@ var config = {
         devtool: 'eval',
         hot: true, //Live-reload
         inline: true,
-        port: 8080 //Port Number
+        host: '0.0.0.0',
+        port: 9080 //Port Number
     },
     devtool: 'eval',
     output: {
@@ -64,17 +71,26 @@ var config = {
             }
         ],
         loaders: [
+            { 
+                test: /\.jpe?g$|\.gif$|\.png$/i,
+                loader: "url-loader?limit=8192"
+            },
             //内联样式
-            //{test: /\.css$/, loader: 'style!css'},
-            //{ test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+            /*
+            { 
+                test: /\.less$/,
+                loader: 'style-loader!css-loader!less-loader'
+            },
+            */
             //外置样式打包
             {
                 test: /\.css/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader")
             },
             {
                 test: /\.less$/,
-                loader: ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")
+                //?{browsers:['> 1%', last 2 version', 'Android >= 4.0']}
+                loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader!less-loader")
             },
             {
                 //React-hot loader and
