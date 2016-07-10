@@ -41,24 +41,29 @@ var config = {
      */
     entry: {
         app: path.join(__dirname, '/src', projectName),
-        react: ['react', 'react-dom'],
+        react: ['react', 'react-dom'],    //详见 webpack.DllReferencePlugin 说明
         router: ['react-router']
     },
     resolve: {
         //默认打包文件
+        root: path.resolve('src'),
         extensions: ["", ".js", ".jsx"],
         modulesDirectories: ['node_modules'] //(Default Settings)
     },
     /*
      * Render source-map file for final build
+     * 选择cheap-source-map，这个比 source-map 快不少
      */
-    //devtool: 'source-map',
+    //devtool: 'cheap-source-map',
     output: {
         path: path.join(userRoot, buildPath), //输出路径
         publicPath: '',     //src 的 base 路径
         filename: './[name].js' //输出的文件名
     },
     plugins: [
+        /*
+         * 将打包环境定为生产环境
+         */
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': '"production"'
@@ -66,12 +71,26 @@ var config = {
             }),
 
         /*
-         * 将公共模块分享出去
+         * 将公共模块分离出去
          */
         new webpack.optimize.CommonsChunkPlugin({
             name: ['react','router'],
             minChunks: Infinity
         }),
+        
+        /*
+         * 打包时排除react模块
+         * 极大的提高打包速度
+         *  这个和上面的那个 webpack.optimize.CommonsChunkPlugin 本质上是一致的，
+         *  更先进的是彻底将 react 的核心包排出了全部打包过程
+         *  所以打包时候会大幅的减少，一般会快 7s
+         *  代价只是需要更新核心包时，手动执行一遍相关命令
+         *  还会整体变大50K，左右，不知道是怎么回事
+         */
+        //new webpack.DllReferencePlugin({
+        //    context: __dirname,
+        //    manifest: require(path.join(userRoot, buildPath, 'verdor-manifest.json'))
+        //}),
         
         /*
          * 压缩
@@ -85,6 +104,7 @@ var config = {
         
         //只报出错误或警告，但不会终止编译，建议如果是开发环境可以把这一项去掉
         new webpack.NoErrorsPlugin(),
+        
         //输出 CSS 文件
         new ExtractTextPlugin('./[name].css')
     ],
@@ -132,9 +152,15 @@ var config = {
                 test: /\.(js|jsx)$/,
                 loader: 'babel-loader',
                 include: [path.join(__dirname, '/src')],
+                exclude: function (path) {
+                    var isNpmModule = !!path.match(/node_modules/);
+                    return isNpmModule;
+                },
+                /*
                 exclude: [
                     nodeModulesPath
                 ],
+                */
                 query: {
                     // plugins: ['transform-runtime'],
                     presets: ['es2015', 'stage-0', 'react']
