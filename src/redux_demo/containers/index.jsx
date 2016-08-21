@@ -11,4 +11,8 @@ const App = () => (
     </div>
 )
 
+App.PropTypes = {
+
+};
+
 export default App;
