@@ -14,20 +14,25 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
  * 需要构建项目的入口文件
  * 想对于当前目录
  */
-var enterFile = 'src/8_oclock/app.jsx';
+//===========================================
+var enterFile = 'src/redux_demo/index.jsx';
+// var enterFile = 'src/8_oclock/app.jsx';
+//===========================================
 
 var config = {
     //总入口文件
-    entry: [
-        'babel-polyfill',
-        'webpack/hot/dev-server',
-        'webpack/hot/only-dev-server',
-        path.join(__dirname, enterFile)
-    ],
+    entry: {
+        // polyfill: 'babel-polyfill',
+        server: ['webpack/hot/dev-server', 'webpack/hot/only-dev-server'],
+        app: path.join(__dirname, enterFile)
+    },
     //入口文件配置解析类型
     resolve: {
-        extensions: ["", ".js", ".jsx"]
-            //node_modules: ["web_modules", "node_modules"]  (Default Settings)
+        //默认打包文件
+        root: path.resolve('src'),
+        extensions: ["", ".js", ".jsx"],
+        modulesDirectories: ['node_modules'] //(Default Settings)
+        //node_modules: ["web_modules", "node_modules"]  (Default Settings)
     },
     //server 配置
     devServer: {
@@ -41,7 +46,8 @@ var config = {
     devtool: 'eval',
     output: {
         path: buildPath, //输出根目录
-        filename: 'app.js'  //输出文件名
+        publicPath: '',     // 引用资源文件的base路径
+        filename: './[name].js'  //输出文件名
     },
     plugins: [
         //Enables Hot Modules Replacement
@@ -57,7 +63,7 @@ var config = {
         ], path.resolve(__dirname, "")),
         */
         //输出 CSS 文件
-        new ExtractTextPlugin("app.css")
+        new ExtractTextPlugin(".[name].css")
     ],
     module: {
         //构建前置加载器
@@ -73,15 +79,8 @@ var config = {
         loaders: [
             { 
                 test: /\.jpe?g$|\.gif$|\.png$/i,
-                loader: "url-loader?limit=8192"
+                loader: "url-loader?limit=8192&name=./[name].[ext]"
             },
-            //内联样式
-            /*
-            { 
-                test: /\.less$/,
-                loader: 'style-loader!css-loader!less-loader'
-            },
-            */
             //外置样式打包
             {
                 test: /\.css/,
@@ -94,10 +93,25 @@ var config = {
             },
             {
                 //React-hot loader and
-                test: /\.(js|jsx)$/, //All .js and .jsx files
-                loaders: ['react-hot', 'babel'], //react-hot is like browser sync and babel loads jsx and es6-7
-                exclude: [nodeModulesPath]
+                test: /\.(js|jsx)$/,
+                loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'], //react-hot is like browser sync and babel loads jsx and es6-7
+                include: [path.join(__dirname, '/src')],
+                exclude: function (path) {
+                    var isNpmModule = !!path.match(/node_modules/);
+                    return isNpmModule;
+                },
+                /*
+                exclude: [
+                    nodeModulesPath
+                ],
+                */
             }
+            // {
+            //     //React-hot loader and
+            //     test: /\.(js|jsx)$/, //All .js and .jsx files
+            //     loaders: ['react-hot', 'babel'], //react-hot is like browser sync and babel loads jsx and es6-7
+            //     exclude: [nodeModulesPath]
+            // }
         ]
     },
     //eslint config 文件配置路径
