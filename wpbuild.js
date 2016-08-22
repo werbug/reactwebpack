@@ -32,11 +32,13 @@ console.log(params);
 let cmd_process = childProcess.spawn('webpack', params);
 
 cmd_process.stdout.on('data', (data) => {
-    console.log(data);
+    console.log('cmd_process data printout: \n');
+    console.log(`${data}`);
 });
-// cmd_process.stderr.on('data', (data) => {
-//     console.log(`stdout: ${data}`);
-// });
+cmd_process.stderr.on('data', (data) => {
+    // console.log(`${data}`);
+    // console.log(data);
+});
 cmd_process.on('close', (data) => {
     console.log(`child process exited with code ${code}`);
 });

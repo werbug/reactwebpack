@@ -92,6 +92,8 @@ var config = {
         //    manifest: require(path.join(userRoot, buildPath, 'verdor-manifest.json'))
         //}),
         
+        new webpack.optimize.DedupePlugin(),
+
         /*
          * 压缩
          */
