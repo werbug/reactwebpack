@@ -1,3 +1,4 @@
+'use strict';
 /*
  * ID 生成器
  */

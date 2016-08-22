@@ -33,7 +33,9 @@
         "indent": [2, 4, {"SwitchCase": 1}],
         "react/jsx-indent": [2, 4],
         "react/jsx-indent-props": [2, 4],
-        "react/prop-types": [0, { "ignore": [], "customValidators": [] }]
+        "react/prop-types": [0, { "ignore": [], "customValidators": [] }],
+        "react/no-find-dom-node": 1,
+        "react/no-render-return-value": 1
     },
     "parser": "babel-eslint",
     "plugins": [
@@ -42,7 +44,8 @@
     "extends": ["plugin:react/recommended"],
     "settings": {
         "react": {
-            "pragma": "React" // Pragma to use, default to "React" 
+            "pragma": "React", // Pragma to use, default to "React"
+            "version": "15.0" 
         }
     }
 }
