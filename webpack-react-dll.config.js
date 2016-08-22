@@ -1,25 +1,11 @@
+
+
 const path = require('path');
 const webpack = require('webpack');
 
-//
-//获取入口文件
-var argv = process.argv,
-    index = argv.indexOf('--path');
-
-if (index === -1 || !argv[index + 1]) {
-    console.log('缺少入口文件，请检查执行命令');
-    return;
-}
-
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var projectName = argv[index + 1],
-    projectPathArr = projectName.split('/');
-
-console.log('将 react 核心包打进项目: ' + projectName);
-
 //用户的 git 根目录，这样做是因为图片和 JS/CSS 不在一个库，输出路径上只能妥协成这样了
-var userRoot = path.resolve(__dirname, '../../'),
-    buildPath = path.join('baby/static/lg/dist/', projectPathArr[0]);
+const userRoot = path.resolve(__dirname, '../../'),
+    buildPath = path.join('baby/static/lg/dist/', 'dll');
 
 /**
  *
@@ -43,6 +29,8 @@ module.exports = {
             }
         }),
         
+        new webpack.optimize.DedupePlugin(),
+
         new webpack.DllPlugin({
             /*
              * path  
