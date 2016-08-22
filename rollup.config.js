@@ -5,8 +5,8 @@ import commonjs from 'rollup-plugin-commonjs';
 import npm from 'rollup-plugin-npm';
 
 export default {
-    entry: 'src/8_oclock_js/app.js',
-    format: 'cjs',
+    entry: 'src/8_oclock/app.jsx',
+    format: 'amd',
     external: [ 'react' ],
     dest: 'build/',
     plugins: [
