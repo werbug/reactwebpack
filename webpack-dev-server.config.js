@@ -94,6 +94,9 @@ var config = {
             {
                 //React-hot loader and
                 test: /\.(js|jsx)$/,
+                /*
+                 * babel 设置query后就不用 .babelrc 文件了
+                 */
                 loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'], //react-hot is like browser sync and babel loads jsx and es6-7
                 include: [path.join(__dirname, '/src')],
                 exclude: function (path) {
@@ -106,12 +109,6 @@ var config = {
                 ],
                 */
             }
-            // {
-            //     //React-hot loader and
-            //     test: /\.(js|jsx)$/, //All .js and .jsx files
-            //     loaders: ['react-hot', 'babel'], //react-hot is like browser sync and babel loads jsx and es6-7
-            //     exclude: [nodeModulesPath]
-            // }
         ]
     },
     //eslint config 文件配置路径
