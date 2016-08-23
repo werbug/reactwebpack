@@ -37,3 +37,9 @@ node_modules
 
 # project directory
 src
+
+# hot-server directory
+www
+
+# dist directory
+dist
