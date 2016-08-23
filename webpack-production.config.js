@@ -136,7 +136,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                //?{browsers:['> 1%', 'last 2 version', 'Android >= 4.0']}
+                //?{browsers:['> 1%', 'Android >= 4.0']}
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader!autoprefixer-loader?{browsers:['> 1%', 'Android >= 4.0']}!less-loader")
             },
             /**
