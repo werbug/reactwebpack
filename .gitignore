@@ -35,5 +35,5 @@ node_modules
 # mac .DS_Store
 .DS_Store
 
-# project
-/src
+# project directory
+src
