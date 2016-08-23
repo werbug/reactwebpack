@@ -36,5 +36,4 @@ node_modules
 .DS_Store
 
 # project
-src
-!src/redux_demo
+/src
