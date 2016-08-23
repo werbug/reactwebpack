@@ -1,9 +1,14 @@
+/**
+ * webpack.DllReferencePlugin 插件配置文件
+ * 把 react react-dom 分享出去
+ * 生成 [name]-manifest.json 文件放在 dist/dll 下，供 production 时使用
+ */
 
+'use strict';
+const path = require('path'),
+    webpack = require('webpack');
 
-const path = require('path');
-const webpack = require('webpack');
-
-//用户的 git 根目录，这样做是因为图片和 JS/CSS 不在一个库，输出路径上只能妥协成这样了
+// dist 路径相关
 const userRoot = path.resolve(__dirname, '../../'),
     buildPath = path.join('baby/static/lg/dist/', 'dll');
 
@@ -20,17 +25,17 @@ module.exports = {
         library: '[name]_library'
     },
     plugins: [
-        /*
-         * 将打包环境定为生产环境
-         */
+        // 将打包环境定为生产环境
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': '"production"'
             }
         }),
         
+        // 去重插件
         new webpack.optimize.DedupePlugin(),
 
+        // 
         new webpack.DllPlugin({
             /*
              * path  
@@ -45,9 +50,8 @@ module.exports = {
              */
             name: '[name]_library'
         }),
-        /*
-         * 压缩
-         */
+        
+        //压缩
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 //supresses warnings, usually from module minification

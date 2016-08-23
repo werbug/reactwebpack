@@ -2,50 +2,47 @@
  * 生产环境发布方法
  */
 'use strict';
-var webpack = require('webpack');
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack'),
+    path = require('path'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
 /**
  * 路径组装
- * 先说一下情况，此 webpack 构建可支持最新的 ES6/7 + reactjs
+ * 此 webpack 构建可支持最新的 ES6/7 + reactjs
  * 确定一个入口文件后，进行完整的依赖打包：
  * 1. 将所有依赖 js 打在一起
  * 2. css/less 文件没有打进 js，个人实用感受，这样很有维护性，否则 js 文件很乱
  * 3. 所需的图片先进行压缩，再将小于8k的图片转成 base64 写入 css，大于8k的文件放入 baby-img 库
  */
 
-//获取入口文件
-var argv = process.argv,
+/*
+ * 获取入口文件 =====================================
+ */
+const argv = process.argv,
     index = argv.indexOf('--path');
 
 if (index === -1 || !argv[index + 1]) {
-    console.log('缺少入口文件，请检查执行命令');
+    console.log('缺少入口文件，请添加参数: --path <入口文件相对 src 路径>');
     return;
 }
+// ===============================================
 
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var projectName = argv[index + 1],
+const projectName = argv[index + 1],
     projectPathArr = projectName.split('/');
 
-console.log(projectName);
+console.log('开始构建文件：' + projectName);
 
-//用户的 git 根目录，这样做是因为图片和 JS/CSS 不在一个库，输出路径上只能妥协成这样了
-var userRoot = path.resolve(__dirname, '../../'),
+const userRoot = path.resolve(__dirname, '../../'),
     buildPath = path.join('baby/static/lg/dist/', projectPathArr[0]),
-    imgPath = path.join('baby-img/img/lg/dist/', projectPathArr[0]);        //还没有用上
+    nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
-var config = {
-    /*
-     * 要进行打包的入口文件
-     * 如果是要强力增强兼容性，比如要在低版本桌面浏览器上用，就加上'babel-polyfill'，把整个babel环境都打进去
-     */
+module.exports = {
     entry: {
+        // polyfill: ['babel-polyfill']     //如果是要强力增强兼容性，比如要在低版本桌面浏览器上用，就加上'babel-polyfill'，把整个babel环境都打进去
         app: path.join(__dirname, '/src', projectName),
-        react: ['react', 'react-dom'],    //详见 webpack.DllReferencePlugin 说明
+        react: ['react', 'react-dom'],    
         router: ['react-router']
     },
     resolve: {
-        //默认打包文件
         root: path.resolve('src'),
         extensions: ["", ".js", ".jsx"],
         modulesDirectories: ['node_modules'] //(Default Settings)
@@ -67,8 +64,8 @@ var config = {
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': '"production"'
-                }
-            }),
+            }
+        }),
 
         /*
          * 将公共模块分离出去
@@ -79,19 +76,19 @@ var config = {
         }),
         
         /*
-         * 打包时排除react模块
+         * 打包时排除 react模块
          * 极大的提高打包速度
          *  这个和上面的那个 webpack.optimize.CommonsChunkPlugin 本质上是一致的，
          *  更先进的是彻底将 react 的核心包排出了全部打包过程
          *  所以打包时候会大幅的减少，一般会快 7s
-         *  代价只是需要更新核心包时，手动执行一遍相关命令
-         *  还会整体变大50K，左右，不知道是怎么回事
+         *  代价只是需要更新核心包时，手动执行一遍 react-dll 相关命令，还会整体变大50K左右，不知道是怎么回事
          */
         //new webpack.DllReferencePlugin({
         //    context: __dirname,
         //    manifest: require(path.join(userRoot, buildPath, 'verdor-manifest.json'))
         //}),
         
+        // 去重
         new webpack.optimize.DedupePlugin(),
 
         /*
@@ -116,7 +113,7 @@ var config = {
             {
                 test: /\.(js|jsx)$/,
                 loader: 'eslint-loader',
-                include: [path.resolve(__dirname, "src/app")],
+                include: [path.resolve(__dirname, "src")],
                 exclude: [nodeModulesPath]
             }
         ],
@@ -155,7 +152,7 @@ var config = {
                 loader: 'babel-loader',
                 include: [path.join(__dirname, '/src')],
                 exclude: function (path) {
-                    var isNpmModule = !!path.match(/node_modules/);
+                    const isNpmModule = !!path.match(/node_modules/);
                     return isNpmModule;
                 },
                 /*
@@ -197,5 +194,3 @@ var config = {
         configFile: '.eslintrc.json' //Rules for eslint
     }
 };
-
-module.exports = config;

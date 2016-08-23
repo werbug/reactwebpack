@@ -3,23 +3,22 @@
  */
 'use strict';
 
-var webpack = require('webpack');
-var path = require('path');
-var buildPath = path.resolve(__dirname, 'build');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules');
-var TransferWebpackPlugin = require('transfer-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack'),
+    path = require('path'),
+    TransferWebpackPlugin = require('transfer-webpack-plugin'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const buildPath = path.resolve(__dirname, 'build'),
+    nodeModulesPath = path.resolve(__dirname, 'node_modules');
 /**
  * 需要构建项目的入口文件
  * 想对于当前目录
  */
 //===========================================
-var enterFile = 'src/redux_demo/index.jsx';
-// var enterFile = 'src/8_oclock/app.jsx';
+const enterFile = 'src/redux_demo/index.jsx';
 //===========================================
 
-var config = {
+module.exports = {
     //总入口文件
     entry: {
         // polyfill: 'babel-polyfill',
@@ -72,7 +71,7 @@ var config = {
                 //Eslint loader
                 test: /\.(js|jsx)$/,
                 loader: 'eslint-loader',
-                include: [path.resolve(__dirname, "src/app")],
+                include: [path.resolve(__dirname, "src")],
                 exclude: [nodeModulesPath]
             }
         ],
@@ -100,14 +99,9 @@ var config = {
                 loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'], //react-hot is like browser sync and babel loads jsx and es6-7
                 include: [path.join(__dirname, '/src')],
                 exclude: function (path) {
-                    var isNpmModule = !!path.match(/node_modules/);
+                    const isNpmModule = !!path.match(/node_modules/);
                     return isNpmModule;
-                },
-                /*
-                exclude: [
-                    nodeModulesPath
-                ],
-                */
+                }
             }
         ]
     },
@@ -116,5 +110,3 @@ var config = {
         configFile: '.eslintrc.json'
     }
 };
-
-module.exports = config;
