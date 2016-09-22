@@ -15,7 +15,7 @@ const buildPath = path.resolve(__dirname, 'build'),
  * 想对于当前目录
  */
 //===========================================
-const enterFile = 'src/redux_demo/index.jsx';
+const enterFile = 'src/baby_comeon/app.jsx';
 //===========================================
 
 module.exports = {
