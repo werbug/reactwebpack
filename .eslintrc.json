@@ -21,6 +21,7 @@
         "no-unused-expressions": 0,
         "no-shadow": 0,
         "no-shadow-restricted-names": 0,
+        "no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
         "no-extend-native": 0,
         "no-var": 2,
         "new-cap": 0,

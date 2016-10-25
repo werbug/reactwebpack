@@ -38,9 +38,9 @@ const userRoot = path.resolve(__dirname, '../../'),
 module.exports = {
     entry: {
         // polyfill: ['babel-polyfill']     //如果是要强力增强兼容性，比如要在低版本桌面浏览器上用，就加上'babel-polyfill'，把整个babel环境都打进去
-        app: path.join(__dirname, '/src', projectName),
-        react: ['react', 'react-dom'],    
-        router: ['react-router']
+        vendor: ['react', 'react-dom'],
+        router: ['react-router'],
+        app: path.join(__dirname, '/src', projectName)
     },
     resolve: {
         root: path.resolve('src'),
@@ -51,11 +51,11 @@ module.exports = {
      * Render source-map file for final build
      * 选择cheap-source-map，这个比 source-map 快不少
      */
-    //devtool: 'cheap-source-map',
+    // devtool: 'cheap-module-source-map',
     output: {
         path: path.join(userRoot, buildPath), //输出路径
         publicPath: '',     //src 的 base 路径
-        filename: './[name].js' //输出的文件名
+        filename: './[name]_[chunkhash:8].js' //输出的文件名
     },
     plugins: [
         /*
@@ -71,7 +71,7 @@ module.exports = {
          * 将公共模块分离出去
          */
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['react','router'],
+            name: ['router', 'vendor'],
             minChunks: Infinity
         }),
         
@@ -105,7 +105,7 @@ module.exports = {
         new webpack.NoErrorsPlugin(),
         
         //输出 CSS 文件
-        new ExtractTextPlugin('./[name].css')
+        new ExtractTextPlugin('./[name]_[chunkhash:8].css')
     ],
     module: {
         //eslint 
@@ -122,7 +122,7 @@ module.exports = {
             //压缩图片，不过这个压缩很慢，先不加了"!img-loader?minimize",
             { 
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: "url-loader?limit=8192&name=./[name].[ext]"
+                loader: "url-loader?limit=8192&name=./[name].[ext]?[hash]"
             },
             //内联样式
             /*
@@ -161,8 +161,8 @@ module.exports = {
                 ],
                 */
                 query: {
-                    // plugins: ['transform-runtime'],
-                    presets: ['es2015', 'stage-0', 'react']
+                    plugins: ['transform-runtime'],
+                    presets: ['es2015', 'react']
                 }
             }
         ]
