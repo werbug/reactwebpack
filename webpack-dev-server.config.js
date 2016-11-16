@@ -36,13 +36,13 @@ module.exports = {
     //server 配置
     devServer: {
         contentBase: 'www', //发布目录
-        devtool: 'eval',
+        devtool: 'cheap-module-eval-source-map',
         hot: true, //Live-reload
         inline: true,
         host: '0.0.0.0',
         port: 9080 //Port Number
     },
-    devtool: 'eval',
+    devtool: 'cheap-module-eval-source-map',
     output: {
         path: buildPath, //输出根目录
         publicPath: '',     // 引用资源文件的base路径
@@ -96,7 +96,7 @@ module.exports = {
                 /*
                  * babel 设置query后就不用 .babelrc 文件了
                  */
-                loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015,presets[]=stage-0'], //react-hot is like browser sync and babel loads jsx and es6-7
+                loaders: ['babel?plugins[]=react-hot-loader/babel,plugins[]=transform-runtime,presets[]=react,presets[]=es2015,presets[]=stage-0'], //react-hot is like browser sync and babel loads jsx and es6-7
                 include: [path.join(__dirname, '/src')],
                 exclude: function (path) {
                     const isNpmModule = !!path.match(/node_modules/);
