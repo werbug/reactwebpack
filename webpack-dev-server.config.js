@@ -15,7 +15,7 @@ const buildPath = path.resolve(__dirname, 'build'),
  * 想对于当前目录
  */
 //===========================================
-const enterFile = 'src/baby_comeon/app.jsx';
+const enterFile = 'src/app/app.jsx';
 //===========================================
 
 module.exports = {
@@ -62,7 +62,7 @@ module.exports = {
         ], path.resolve(__dirname, "")),
         */
         //输出 CSS 文件
-        new ExtractTextPlugin(".[name].css")
+        new ExtractTextPlugin("./[name].css")
     ],
     module: {
         //构建前置加载器
